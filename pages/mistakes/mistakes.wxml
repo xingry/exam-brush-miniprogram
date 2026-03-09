@@ -1,0 +1,65 @@
+<view class="container">
+  <!-- 顶部统计 -->
+  <view class="stats-card">
+    <view class="stats-item">
+      <text class="stats-number">{{totalMistakes}}</text>
+      <text class="stats-label">错题总数</text>
+    </view>
+    <view class="stats-item">
+      <text class="stats-number">{{masteredCount}}</text>
+      <text class="stats-label">已掌握</text>
+    </view>
+    <view class="stats-item">
+      <text class="stats-number">{{reviewToday}}</text>
+      <text class="stats-label">今日复习</text>
+    </view>
+  </view>
+
+  <!-- 筛选栏 -->
+  <view class="filter-bar">
+    <view class="filter-item {{filter === 'all' ? 'active' : ''}}" bindtap="setFilter" data-type="all">
+      全部
+    </view>
+    <view class="filter-item {{filter === 'network' ? 'active' : ''}}" bindtap="setFilter" data-type="network">
+      网络基础
+    </view>
+    <view class="filter-item {{filter === 'database' ? 'active' : ''}}" bindtap="setFilter" data-type="database">
+      数据库
+    </view>
+    <view class="filter-item {{filter === 'security' ? 'active' : ''}}" bindtap="setFilter" data-type="security">
+      网络安全
+    </view>
+  </view>
+
+  <!-- 错题列表 -->
+  <view class="mistakes-list" wx:if="{{mistakes.length > 0}}">
+    <view class="mistake-item" wx:for="{{mistakes}}" wx:key="id" bindtap="viewDetail" data-item="{{item}}">
+      <view class="mistake-header">
+        <text class="mistake-type">{{item.type}}</text>
+        <text class="mistake-date">{{item.date}}</text>
+      </view>
+      <view class="mistake-content">{{item.question}}</view>
+      <view class="mistake-footer">
+        <text class="mistake-count">错误 {{item.wrongCount}} 次</text>
+        <view class="mistake-actions">
+          <text class="action-btn" bindtap="reviewNow" data-id="{{item.id}}">立即复习</text>
+          <text class="action-btn delete" bindtap="removeMistake" data-id="{{item.id}}">删除</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:else>
+    <text class="empty-icon">🎉</text>
+    <text class="empty-text">太棒了！目前没有错题</text>
+    <text class="empty-hint">继续刷题保持下去～</text>
+  </view>
+
+  <!-- 底部复习按钮 -->
+  <view class="bottom-review" wx:if="{{mistakes.length > 0}}">
+    <button class="btn-review" bindtap="reviewAll">
+      复习全部错题 ({{mistakes.length}})
+    </button>
+  </view>
+</view>
