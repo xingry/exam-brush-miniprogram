@@ -1,0 +1,132 @@
+<view class="container">
+  <!-- 打卡状态卡片 -->
+  <view class="checkin-card">
+    <view class="checkin-header">
+      <text class="month-title">{{currentYear}}年{{currentMonth}}月</text>
+      <text class="checkin-subtitle">坚持打卡，养成学习习惯</text>
+    </view>
+    
+    <view class="streak-section">
+      <view class="streak-item">
+        <text class="streak-number">{{streakDays}}</text>
+        <text class="streak-label">连续打卡</text>
+      </view>
+      <view class="divider"></view>
+      <view class="streak-item">
+        <text class="streak-number">{{totalDays}}</text>
+        <text class="streak-label">累计打卡</text>
+      </view>
+      <view class="divider"></view>
+      <view class="streak-item">
+        <text class="streak-number">{{monthDays}}</text>
+        <text class="streak-label">本月天数</text>
+      </view>
+    </view>
+
+    <!-- 打卡按钮 -->
+    <button 
+      class="checkin-btn {{isTodayChecked ? 'checked' : ''}}" 
+      bindtap="doCheckIn"
+      disabled="{{isTodayChecked || isLoading}}"
+    >
+      <text wx:if="{{isLoading}}">打卡中...</text>
+      <text wx:elif="{{isTodayChecked}}">今日已打卡 ✓</text>
+      <text wx:else>立即打卡</text>
+    </button>
+
+    <view class="checkin-tip" wx:if="{{isTodayChecked}}">
+      <text>明天继续加油！连续打卡{{streakDays}}天</text>
+    </view>
+    <view class="checkin-tip" wx:else>
+      <text>今日还未打卡，点击按钮打卡</text>
+    </view>
+  </view>
+
+  <!-- 日历 -->
+  <view class="calendar-card">
+    <view class="calendar-header">
+      <text class="calendar-title">打卡日历</text>
+      <view class="legend">
+        <view class="legend-item">
+          <view class="legend-dot checked"></view>
+          <text>已打卡</text>
+        </view>
+        <view class="legend-item">
+          <view class="legend-dot today"></view>
+          <text>今天</text>
+        </view>
+        <view class="legend-item">
+          <view class="legend-dot normal"></view>
+          <text>未打卡</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 星期标题 -->
+    <view class="week-header">
+      <text wx:for="{{weekDays}}" wx:key="*this" class="week-day">{{item}}</text>
+    </view>
+
+    <!-- 日期网格 -->
+    <view class="days-grid">
+      <view 
+        wx:for="{{calendarDays}}" 
+        wx:key="date"
+        class="day-cell {{item.isToday ? 'today' : ''}} {{item.isChecked ? 'checked' : ''}} {{item.isOtherMonth ? 'other-month' : ''}}"
+      >
+        <text class="day-number">{{item.day}}</text>
+        <view wx:if="{{item.isChecked}}" class="check-mark">✓</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 打卡规则 -->
+  <view class="rules-card">
+    <view class="rules-title">📋 打卡规则</view>
+    <view class="rules-list">
+      <view class="rule-item">
+        <text class="rule-dot">1</text>
+        <text class="rule-text">每日完成任意刷题即可打卡</text>
+      </view>
+      <view class="rule-item">
+        <text class="rule-dot">2</text>
+        <text class="rule-text">连续打卡可获得更多积分奖励</text>
+      </view>
+      <view class="rule-item">
+        <text class="rule-dot">3</text>
+        <text class="rule-text">断签后连续天数将重新计算</text>
+      </view>
+      <view class="rule-item">
+        <text class="rule-dot">4</text>
+        <text class="rule-text">累计打卡可解锁成就徽章</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 成就徽章 -->
+  <view class="badges-card">
+    <view class="badges-title">🏆 成就徽章</view>
+    <view class="badges-list">
+      <view class="badge-item {{streakDays >= 7 ? 'unlocked' : ''}}">
+        <view class="badge-icon">🔥</view>
+        <text class="badge-name">周打卡</text>
+        <text class="badge-desc">连续7天</text>
+      </view>
+      <view class="badge-item {{streakDays >= 30 ? 'unlocked' : ''}}">
+        <view class="badge-icon">⭐</view>
+        <text class="badge-name">月打卡</text>
+        <text class="badge-desc">连续30天</text>
+      </view>
+      <view class="badge-item {{totalDays >= 100 ? 'unlocked' : ''}}">
+        <view class="badge-icon">💯</view>
+        <text class="badge-name">百天达人</text>
+        <text class="badge-desc">累计100天</text>
+      </view>
+      <view class="badge-item {{streakDays >= 365 ? 'unlocked' : ''}}">
+        <view class="badge-icon">👑</view>
+        <text class="badge-name">年度王者</text>
+        <text class="badge-desc">连续365天</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -26,3 +26,7 @@ private_config.json
 # 日志
 *.log
 logs/
+
+# 文档和脚本（不推送）
+*.md
+*.sh

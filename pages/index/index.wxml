@@ -1,8 +1,15 @@
 <view class="container">
   <!-- 顶部问候 -->
   <view class="card greeting">
-    <text class="greeting-title">你好，{{nickName || '同学'}}</text>
-    <text class="greeting-subtitle">今天也要加油刷题哦！💪</text>
+    <block wx:if="{{isLoggedIn}}">
+      <text class="greeting-title">你好，{{nickName || '同学'}}</text>
+      <text class="greeting-subtitle">今天也要加油刷题哦！💪</text>
+    </block>
+    <block wx:else>
+      <text class="greeting-title">欢迎使用刷题小程序</text>
+      <text class="greeting-subtitle">登录后开启你的学习之旅 📚</text>
+      <button class="login-btn" bindtap="wxLogin" size="mini" type="primary">微信一键登录</button>
+    </block>
   </view>
 
   <!-- 今日任务 -->

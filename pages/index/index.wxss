@@ -19,6 +19,16 @@ page {
   color: rgba(255, 255, 255, 0.85);
 }
 
+.login-btn {
+  margin-top: 20rpx;
+  background: #fff !important;
+  color: #4A90D9 !important;
+  font-weight: 600;
+  border-radius: 30rpx;
+  padding: 12rpx 32rpx;
+  font-size: 28rpx;
+}
+
 .task-card {
   background: #fff !important;
 }

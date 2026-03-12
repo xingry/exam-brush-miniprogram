@@ -3,7 +3,9 @@
     "pages/index/index",
     "pages/practice/practice",
     "pages/mistakes/mistakes",
-    "pages/profile/profile"
+    "pages/profile/profile",
+    "pages/checkin/checkin",
+    "pages/feedback/feedback"
   ],
   "window": {
     "backgroundTextStyle": "light",

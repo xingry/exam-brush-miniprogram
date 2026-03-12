@@ -1,0 +1,9 @@
+{
+  "name": "saveMistake",
+  "version": "1.0.0",
+  "description": "保存错题",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~3.0.1"
+  }
+}

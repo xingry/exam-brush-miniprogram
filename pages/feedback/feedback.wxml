@@ -1,0 +1,94 @@
+<view class="container">
+  <!-- 反馈类型 -->
+  <view class="section">
+    <view class="section-title">反馈类型</view>
+    <view class="type-list">
+      <view 
+        wx:for="{{feedbackTypes}}" 
+        wx:key="value"
+        class="type-item {{selectedType === item.value ? 'active' : ''}}"
+        bindtap="selectType"
+        data-value="{{item.value}}"
+      >
+        <text class="type-icon">{{item.icon}}</text>
+        <text class="type-text">{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 反馈内容 -->
+  <view class="section">
+    <view class="section-title">反馈内容
+      <text class="word-count">{{content.length}}/500</text>
+    </view>
+    <textarea 
+      class="content-input"
+      placeholder="请详细描述您遇到的问题或建议，我们会认真听取..."
+      maxlength="500"
+      bindinput="onContentInput"
+      value="{{content}}"
+    ></textarea>
+  </view>
+
+  <!-- 联系方式 -->
+  <view class="section">
+    <view class="section-title">联系方式（选填）</view>
+    <input 
+      class="contact-input"
+      placeholder="手机号/微信/邮箱，方便我们联系您"
+      maxlength="50"
+      bindinput="onContactInput"
+      value="{{contact}}"
+    />
+  </view>
+
+  <!-- 提示 -->
+  <view class="tips">
+    <text class="tip-icon">💡</text>
+    <text class="tip-text">您的反馈将帮助我们改进产品，通常在1-3个工作日内回复</text>
+  </view>
+
+  <!-- 提交按钮 -->
+  <button 
+    class="submit-btn {{!canSubmit ? 'disabled' : ''}}"
+    bindtap="submitFeedback"
+    disabled="{{!canSubmit || isSubmitting}}"
+  >
+    <text wx:if="{{isSubmitting}}">提交中...</text>
+    <text wx:else>提交反馈</text>
+  </button>
+
+  <!-- 常见问题 -->
+  <view class="faq-section">
+    <view class="faq-title">❓ 常见问题</view>
+    <view class="faq-list">
+      <view class="faq-item" bindtap="toggleFaq" data-index="0">
+        <view class="faq-question">
+          <text>如何获得更多题库？</text>
+          <text class="faq-arrow {{faqOpen[0] ? 'open' : ''}}">▼</text>
+        </view>
+        <view class="faq-answer {{faqOpen[0] ? 'show' : ''}}">
+          <text>我们会持续更新题库，请关注小程序更新。您也可以通过反馈告诉我们您需要的科目。</text>
+        </view>
+      </view>
+      <view class="faq-item" bindtap="toggleFaq" data-index="1">
+        <view class="faq-question">
+          <text>打卡断签了怎么办？</text>
+          <text class="faq-arrow {{faqOpen[1] ? 'open' : ''}}">▼</text>
+        </view>
+        <view class="faq-answer {{faqOpen[1] ? 'show' : ''}}">
+          <text>断签后连续天数会重新计算，但累计打卡天数会保留。坚持每日打卡可以获得成就徽章哦！</text>
+        </view>
+      </view>
+      <view class="faq-item" bindtap="toggleFaq" data-index="2">
+        <view class="faq-question">
+          <text>错题本有容量限制吗？</text>
+          <text class="faq-arrow {{faqOpen[2] ? 'open' : ''}}">▼</text>
+        </view>
+        <view class="faq-answer {{faqOpen[2] ? 'show' : ''}}">
+          <text>没有限制，所有做错的题目都会自动保存到错题本，方便您随时复习。</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

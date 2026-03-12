@@ -1,16 +1,28 @@
 <view class="container">
   <!-- 用户信息 -->
   <view class="user-card">
-    <view class="avatar" wx:if="{{avatarUrl}}">
-      <image class="avatar-img" src="{{avatarUrl}}" mode="aspectFill"></image>
-    </view>
-    <view class="avatar" wx:else>
-      <text class="avatar-placeholder">{{nickName ? nickName[0] : '同'}}</text>
-    </view>
-    <view class="user-info">
-      <text class="nick-name">{{nickName || '同学'}}</text>
-      <text class="user-id">ID: {{openid || '未登录'}}</text>
-    </view>
+    <block wx:if="{{isLoggedIn}}">
+      <view class="avatar" wx:if="{{avatarUrl}}">
+        <image class="avatar-img" src="{{avatarUrl}}" mode="aspectFill"></image>
+      </view>
+      <view class="avatar" wx:else>
+        <text class="avatar-placeholder">{{nickName ? nickName[0] : '同'}}</text>
+      </view>
+      <view class="user-info">
+        <text class="nick-name">{{nickName || '同学'}}</text>
+        <text class="user-id">ID: {{openid || '未登录'}}</text>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="avatar">
+        <text class="avatar-placeholder">?</text>
+      </view>
+      <view class="user-info">
+        <text class="nick-name">未登录</text>
+        <text class="user-id">点击登录同步学习数据</text>
+      </view>
+      <button class="login-btn-mini" bindtap="wxLogin" size="mini" type="primary">登录</button>
+    </block>
   </view>
 
   <!-- 学习统计 -->
